@@ -31,14 +31,14 @@ int main(){
     int n,m,k;
     scanf("%d %d %d",&n,&m,&k);
 
-    for(int i=0;i<m;i++){
+    for(int i=0;i<m;i++){//初始化学校
         scanf("%d",&sch[i].quota);
         sch[i].id=i;
         sch[i].lastadmit=-1;
         sch[i].admitnum=0;
     }
 
-    for(int i=0;i<n;i++){
+    for(int i=0;i<n;i++){//初始化学生
         s[i].id=i;
         s[i].ad=false;
         scanf("%d %d",&s[i].ge,&s[i].gi);
