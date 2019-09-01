@@ -1,64 +1,40 @@
-#include <cstdio>
-#include <vector>
+#include<cstdio>
+#include<iostream>
+#include<vector>
 using namespace std;
 
-// int find(int a[], int n, int x);
-int findmax(int a[], int n, int a1[]);
+vector<vector<int> > v(30);
+int post[31],in[31];
 
-int main()
-{
-    int n;
-    vector<int> a,a1, b;
-    scanf("%d", &n);
-    a1.resize(n);
-    for (int i = 0; i < n; i++)
-    {
-        int t;
-        scanf("%d", &t);
-        a.push_back(t);
-        a1[t] = i;
-    }
-    for (int i = 0; i < n; i++)
-    {
-        int t;
-        scanf("%d", &t);
-        b.push_back(t);
-    }
-
-    while()
-    {
-        int root;
-        root = findmax(b.begin(), n, a1.begin());
-    }
-
-
-
-
-    return 0;
+void create(int root,int start,int end,int index){
+    if(start>end) return;
+    int i=start;
+    while(i<end && post[root]!=in[i]) i++;
+    v[index].push_back(post[root]);
+    create(root-1-end+i,start,i-1,index+1);
+    create(root-1,i+1,end,index+1);
 }
-// int find(int a[], int n, int x)
-// {
-//     int ret = -1;
-//     for (int i = 0; i < n; i++)
-//     {
-//         if (a[i] == x)
-//         {
-//             ret = i;
-//             break;
-//         }
-//     }
-//     return ret;
-// }
 
-int findmax(int a[],int n,int a1[])
-{
-    int ret = 0;
-    for (int i = 1; i < n;i++)
-    {
-        if(a1[a[i]]>a1[a[i-1]])
-        {
-            ret = i;
+int main(){
+    int n;
+    scanf("%d",&n);
+    for(int i=0;i<n;i++){
+        scanf("%d",&post[i]);
+    }
+    for(int i=0;i<n;i++){
+        scanf("%d",&in[i]);
+    }
+    create(n-1,0,n-1,0);
+
+    int cnt=0;
+    for(int i=0;i<n;i++){
+        if(v[i].size()!=0){
+            for(int j=0;j<v[i].size();j++){
+                if(cnt) printf(" ");
+                printf("%d",v[i][j]);
+                cnt++;
+            }
         }
     }
-    return ret;
+    return 0;
 }
