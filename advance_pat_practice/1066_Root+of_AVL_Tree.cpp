@@ -49,13 +49,11 @@ void insert(node *&root, int data) { //核心函数，插入操作
     insert(root->left, data);
     updateh(root);
     if (getheight(root->left) - getheight(root->right) == 2) { //左边不平衡
-      if (getheight(root->left->left) - getheight(root->left->right) ==
-          1) { // LL类型，只需对根节点右旋
-        R(root);
-      } else if (
-          getheight(root->left->left) - getheight(root->left->right) ==
-          -1) { // LR类型，先对左子树进行左旋转化成LL型，再对根节点做右旋操作
-        L(root->left);
+      if (getheight(root->left->left) - getheight(root->left->right) == 1) {
+        R(root); // LL类型，只需对根节点右旋
+      } else if (getheight(root->left->left) - getheight(root->left->right) ==
+                 -1) {
+        L(root->left); // LR类型，先对左子树进行左旋转化成LL型，再对根节点做右旋操作
         R(root);
       }
     }
@@ -63,13 +61,11 @@ void insert(node *&root, int data) { //核心函数，插入操作
     insert(root->right, data);
     updateh(root);
     if (getheight(root->left) - getheight(root->right) == -2) { //右子树不平衡
-      if (getheight(root->right->left) - getheight(root->right->right) ==
-          -1) { // RR型，只需对根节点做左旋操作
-        L(root);
-      } else if (
-          getheight(root->right->left) - getheight(root->right->right) ==
-          1) { // RL类型，先做右子树做右旋，转化成RR型，在对根节点做左旋操作
-        R(root->right);
+      if (getheight(root->right->left) - getheight(root->right->right) == -1) {
+        L(root); // RR型，只需对根节点做左旋操作
+      } else if (getheight(root->right->left) - getheight(root->right->right) ==
+                 1) {
+        R(root->right); // RL类型，先做右子树做右旋，转化成RR型，在对根节点做左旋操作
         L(root);
       }
     }
