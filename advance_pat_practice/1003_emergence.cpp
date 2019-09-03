@@ -1,59 +1,61 @@
-#include<iostream>
-#include<algorithm>
+#include <algorithm>
+#include <iostream>
+
 using namespace std;
 
-int e[510][510],dist[510],r[510],num[510],rt[510];
+int e[510][510], dist[510], r[510], num[510], rt[510];
 bool visit[510];
-const int inf=99999999;
-int main(int argc, char const *argv[])
-{
-	fill(e[0],e[0]+510*510,inf); //fillµÄ²ÎÊýÊÇµØÖ·£¡£¡£¡£¡
-	int n,m,c1,c2;
-	scanf("%d %d %d %d",&n,&m,&c1,&c2);
-	
-	for(int i=0;i<n;i++){      //³õÊ¼»¯Ã¿¸öµãµÄ¾ÈÔ®Õ¾ÊýÁ¿
-		scanf("%d",&r[i]);
-	}
-	
-	for(int i=0;i<m;i++){      //³õÊ¼»¯±ß¾ØÕó
-		int a,b,c;
-		scanf("%d %d %d",&a,&b,&c);
-		e[a][b]=e[b][a]=c;
-	}
+const int inf = 99999999;
+int main(int argc, char const *argv[]) {
+  fill(e[0], e[0] + 510 * 510, inf); // fillï¿½Ä²ï¿½ï¿½ï¿½ï¿½Çµï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+  int n, m, c1, c2;
+  scanf("%d %d %d %d", &n, &m, &c1, &c2);
 
-	for(int i=0;i<n;i++){
-		e[i][i]=0;
-		dist[i]=e[c1][i];
-	}//³õÊ¼»¯dist[]
+  for (int i = 0; i < n;
+       i++) { //ï¿½ï¿½Ê¼ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½Ô®Õ¾ï¿½ï¿½ï¿½ï¿½
+    scanf("%d", &r[i]);
+  }
 
-	rt[c1]=r[c1];
-	num[c1]=1;
-	                  
-	for(int i=0;i<n;i++){
-		int u=-1,minn=inf;//ÓÃÓÚ²¢²é¼¯²Ù×÷£¬Ñ¡³ödistÖÐ»¹Î´·ÃÎÊµÄ×îÐ¡Öµ
-		for(int j=0;j<n;j++){
-			if(!visit[j] && dist[j]<minn){
-				u=j;
-				minn=dist[j];
-			}
-		}
-		if(u==-1) break;
-		visit[u]=true;
-		for(int v=0;v<n;v++){
-			if(!visit[v] && e[u][v]!=inf){
-				if(dist[u]+e[u][v]<dist[v]){
-					dist[v]=dist[u]+e[u][v];
-					rt[v]=r[v]+rt[u];
-					num[v]=num[u];
-				}else if(dist[u]+e[u][v]==dist[v]){
-					num[v]=num[u]+num[v];
-					if(rt[u]+r[v]>rt[v]) rt[v]=rt[u]+r[v];
-				}
-			}
-		}
-	}
+  for (int i = 0; i < m; i++) { //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ß¾ï¿½ï¿½ï¿½
+    int a, b, c;
+    scanf("%d %d %d", &a, &b, &c);
+    e[a][b] = e[b][a] = c;
+  }
 
-	printf("%d %d",num[c2],rt[c2]);
-	return 0;
+  for (int i = 0; i < n; i++) {
+    e[i][i] = 0;
+    dist[i] = e[c1][i];
+  } //ï¿½ï¿½Ê¼ï¿½ï¿½dist[]
+
+  rt[c1] = r[c1];
+  num[c1] = 1;
+
+  for (int i = 0; i < n; i++) {
+    int u = -1, minn = inf; //ï¿½ï¿½ï¿½Ú²ï¿½ï¿½é¼¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½distï¿½Ð»ï¿½Î´ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½Ð¡Öµ
+    for (int j = 0; j < n; j++) {
+      if (!visit[j] && dist[j] < minn) {
+        u = j;
+        minn = dist[j];
+      }
+    }
+    if (u == -1)
+      break;
+    visit[u] = true;
+    for (int v = 0; v < n; v++) {
+      if (!visit[v] && e[u][v] != inf) {
+        if (dist[u] + e[u][v] < dist[v]) {
+          dist[v] = dist[u] + e[u][v];
+          rt[v] = r[v] + rt[u];
+          num[v] = num[u];
+        } else if (dist[u] + e[u][v] == dist[v]) {
+          num[v] = num[u] + num[v];
+          if (rt[u] + r[v] > rt[v])
+            rt[v] = rt[u] + r[v];
+        }
+      }
+    }
+  }
+
+  printf("%d %d", num[c2], rt[c2]);
+  return 0;
 }
-
