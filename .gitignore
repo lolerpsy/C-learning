@@ -2,3 +2,5 @@
 .vscode/settings.json
 .vscode/tasks.json
 *.exe
+*.clang-format
+9-8pat.md
