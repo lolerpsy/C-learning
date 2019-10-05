@@ -1,9 +1,6 @@
 #include <cstdio>
-
 using namespace std;
-
-int main(int argc, const char *argv[])
-{
+int main(int argc, const char *argv[]) {
     int len;
     int thissum = 0, maxsum = 0;
     int a[10000];
@@ -11,30 +8,22 @@ int main(int argc, const char *argv[])
     bool allnegative = true;
     bool zeroflag = true;
     scanf("%d", &len);
-    for (int i = 0; i < len; i++)
-    {
+    for (int i = 0; i < len; i++) {
         scanf("%d", &a[i]);
     }
-
-    for (int i = 0; i < len; i++)
-    {
-        if (a[i] >= 0)
-        {
+    for (int i = 0; i < len; i++) {
+        if (a[i] >= 0) {
             allnegative = false;
         }
-
         thissum += a[i];
-
-        if (thissum > maxsum)
-        {
+        if (thissum > maxsum) {
             maxsum = thissum;
             zeroflag = false;
             tail = i;
             head = count;
         }
 
-        if (thissum < 0)
-        {
+        if (thissum < 0) {
             thissum = 0;
             count = i + 1;
         }
