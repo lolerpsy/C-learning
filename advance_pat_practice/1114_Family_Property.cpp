@@ -1,0 +1,18 @@
+#include<iostream>
+#include<cstdio>
+#include<set>
+struct data{
+    int id
+}
+struct node{
+    int
+}
+using namespace std;
+int main(){
+    int n;
+    scanf("%d",&n);
+    for(int i=0;i<n;i++){
+
+    }
+    return 0;
+}
