@@ -1,19 +1,9 @@
 #include<iostream>
 #include<cstdio>
 using namespace std;
-int stripe[10010];
-int order[210];
-int maxlen=0;
-int m,n,l;
-void dfs(int now,int noworder,int len){
-    if(len>maxlen) maxlen = len;
-    if(now>l-1) return;
-    if(order[stripe[now]]>0 && order[stripe[now]] >= noworder){
-        dfs(now +1,order[stripe[now]],len+1);
-        dfs(now+1,noworder,len);
-    }else dfs(now+1,noworder,len);
-}
 int main(){
+    int stripe[10010],order[210]={0},dp[10010];
+    int n,m,l,cnt=1;
     scanf("%d",&n);
     scanf("%d",&m);
     for(int i=0;i<m;i++){
@@ -22,10 +12,21 @@ int main(){
         order[t]=i+1;
     }
     scanf("%d",&l);
-    for(int i=0;i<l;i++){
-        scanf("%d",&stripe[i]);
+    for(int i=1;i<=l;i++){
+        int t;
+        scanf("%d",&t);
+        if(order[t]!=0) stripe[cnt++]=order[t];
     }
-    dfs(0,0,0);
-    printf("%d",maxlen);
+    int ans=-1;
+    for(int i=1;i<=cnt;i++){
+        dp[i]=1;
+        for(int j=1;j<i;j++){
+            if(stripe[i]>=stripe[j] && dp[j]+1>dp[i]){
+                dp[i]=dp[j]+1;
+            }
+        }
+        if(dp[i]>ans) ans=dp[i];
+    }
+    printf("%d",ans);
     return 0;
 }
